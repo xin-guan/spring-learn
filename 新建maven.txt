@@ -1,0 +1,2 @@
+这里在Properties中添加一个参数archetypeCatalog=internal，
+不加这个参数，在maven生成骨架的时候将会非常慢，有时候会直接卡住。
