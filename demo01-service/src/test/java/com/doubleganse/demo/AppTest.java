@@ -1,4 +1,4 @@
-package com.goubleganse.demo;
+package com.doubleganse.demo;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

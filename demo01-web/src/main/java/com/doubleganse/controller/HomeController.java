@@ -1,10 +1,7 @@
 package com.doubleganse.controller;
 
 import com.doubleganse.demo.bean.JsonResponse;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,25 +12,22 @@ import java.util.Map;
 @RestController
 public class HomeController {
 
-    @ResponseBody
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public JsonResponse index() {
         JsonResponse jsonResponse = new JsonResponse();
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("name", "张三");
-        map.put("age", "33");
-        map.put("disc", "工人");
-        jsonResponse.add(map);
-        return jsonResponse.add(map);
+        jsonResponse.put("name", "张三");
+        jsonResponse.put("age", "33");
+        jsonResponse.put("disc", "工人");
+        return jsonResponse;
     }
 
-    @ResponseBody
-    @RequestMapping("/test")
-    public Map<String, String> test(){
+    @RequestMapping(value = "/test", method = RequestMethod.GET)
+    public JsonResponse test(int i){
+        System.out.println("handException result: "+(10/i));
         Map<String, String> map = new HashMap<String, String>();
         map.put("id","111");
-        map.put("name","kady");
-        return map;
+        map.put("name","柯南");
+        return JsonResponse.success().add(map);
     }
 
 }

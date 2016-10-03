@@ -1,11 +1,14 @@
 package com.doubleganse.configration;
 
+import com.doubleganse.interceptor.LoginInterceptor;
+import com.doubleganse.interceptor.SecondInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -23,11 +26,17 @@ public class WebConfig extends WebMvcConfigurerAdapter{
 		resolver.setExposeContextBeansAsAttributes(true);
 		return resolver;
 	}
-	
+
 	// 静态资源直接交给服务器默认的servlet处理
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new LoginInterceptor());
+		registry.addInterceptor(new SecondInterceptor());
 	}
 
 }

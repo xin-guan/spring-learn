@@ -1,7 +1,5 @@
-<!-- if debug set to true, context info always print otherwise the contex 
-	info will print when error occour -->
 <configuration scan="true" scanPeriod="60 seconds" debug="false">
-    <contextName>krplus-web</contextName>
+    <contextName>demo01-web</contextName>
 
     <property name="LOG_HOME" value="${CATALINA_BASE}/logs" />
 

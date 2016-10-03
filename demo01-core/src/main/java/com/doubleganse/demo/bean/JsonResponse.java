@@ -16,7 +16,7 @@ public class JsonResponse implements Serializable {
     private static final Object EMPTY = new Object();
 
     private Integer code = 0; // 0:成功 1:失败
-    private String msg = ""; // 提示
+    private String msg = "操作成功"; // 提示
     private Object data = EMPTY; // 返回的数据
 
 
