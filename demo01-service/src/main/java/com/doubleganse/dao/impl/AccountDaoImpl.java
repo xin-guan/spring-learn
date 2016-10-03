@@ -20,16 +20,15 @@ public class AccountDaoImpl implements AccountDao {
 	private AccountMapper accountMapper;
 
 	public Account getByNameAndPassword(String name, String password) {
-		return accountMapper.selectById(1);
-//		AccountCondition accountCondition = new AccountCondition();
-//		AccountCondition.Criteria criteria = accountCondition.createCriteria();
-//		criteria.andNameEqualTo(name);
-//		criteria.andPasswordEqualTo(password);
-//		List<Account> accountList = accountMapper.selectByCondition(accountCondition);
-//		if (CollectionUtils.isEmpty(accountList)) {
-//			return null;
-//		} else {
-//			return accountList.get(0);
-//		}
+		AccountCondition accountCondition = new AccountCondition();
+		AccountCondition.Criteria criteria = accountCondition.createCriteria();
+		criteria.andNameEqualTo(name);
+		criteria.andPasswordEqualTo(password);
+		List<Account> accountList = accountMapper.selectByCondition(accountCondition);
+		if (CollectionUtils.isEmpty(accountList)) {
+			return null;
+		} else {
+			return accountList.get(0);
+		}
 	}
 }

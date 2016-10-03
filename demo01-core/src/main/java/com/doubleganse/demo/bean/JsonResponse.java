@@ -156,6 +156,9 @@ public class JsonResponse implements Serializable {
     }
 
     public Object getData() {
+        if(data==EMPTY){
+            data = new HashMap();
+        }
         return data;
     }
 

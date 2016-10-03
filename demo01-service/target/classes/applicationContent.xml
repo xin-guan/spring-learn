@@ -21,11 +21,11 @@
     <!-- 配置Session工厂 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <!--<property name="mapperLocations"  value="classpath*:com/doubleganse/mapper"/>-->
+        <property name="mapperLocations"  value="classpath*:com/doubleganse/mapper/TeacherNatureInfoMapper.xml"/>
         <!-- 加载mybatis.cfg.xml文件 -->
-        <property name="configLocation" value="classpath:mybatis.cfg.xml"/>
+        <!--<property name="configLocation" value="classpath:mybatis.cfg.xml"/>-->
         <!-- 自动扫描需要定义类别名的包，将包内的JAVA类的类名作为类别名 -->
-        <property name="typeAliasesPackage" value="com.doubleganse.model"/>
+        <!--<property name="typeAliasesPackage" value="com.doubleganse.model"/>-->
     </bean>
 
     <!-- 自动扫描所有的Mapper接口与文件 -->

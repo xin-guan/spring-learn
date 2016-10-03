@@ -24,11 +24,10 @@ public class AccountController {
 	public JsonResponse login(String name, String password, HttpServletRequest request) {
 		Account account = accountService.getByNameAndPassword(name, password);
 		if (account == null) {
-			return JsonResponse.success("用户名或密码错误");
+			return JsonResponse.failed("用户名或密码错误");
 		} else {
-			request.getSession().setAttribute("user", account);
+			return JsonResponse.success("登陆成功").add(account);
 		}
-		return JsonResponse.success();
 	}
 
 }

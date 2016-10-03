@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.doubleganse.mapper.TeacherSocialInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.doubleganse.model.TeacherSocialInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="politics_status" property="politicsStatus" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="degree" property="degree" jdbcType="VARCHAR" />
+    <result column="work_time" property="workTime" jdbcType="TIMESTAMP" />
+    <result column="work_status" property="workStatus" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="come_school_time" property="comeSchoolTime" jdbcType="TIMESTAMP" />
+    <result column="teacher_id" property="teacherId" jdbcType="INTEGER" />
+    <result column="party_position" property="partyPosition" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Condition_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Condition_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, politics_status, profession, degree, work_time, work_status, position, come_school_time, 
+    teacher_id, party_position, create_time, update_time
+  </sql>
+  <select id="selectByCondition" resultMap="BaseResultMap" parameterType="com.doubleganse.model.TeacherSocialInfoCondition" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from teacher_social_info
+    <if test="_parameter != null" >
+      <include refid="Condition_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitOffset >= 0" >
+       limit ${limitOffset} , ${limitSize}
+    </if>
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from teacher_social_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from teacher_social_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByCondition" parameterType="com.doubleganse.model.TeacherSocialInfoCondition" >
+    delete from teacher_social_info
+    <if test="_parameter != null" >
+      <include refid="Condition_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.doubleganse.model.TeacherSocialInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into teacher_social_info (politics_status, profession, degree, 
+      work_time, work_status, position, 
+      come_school_time, teacher_id, party_position, 
+      create_time, update_time)
+    values (#{politicsStatus,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, #{degree,jdbcType=VARCHAR}, 
+      #{workTime,jdbcType=TIMESTAMP}, #{workStatus,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{comeSchoolTime,jdbcType=TIMESTAMP}, #{teacherId,jdbcType=INTEGER}, #{partyPosition,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.doubleganse.model.TeacherSocialInfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into teacher_social_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="politicsStatus != null" >
+        politics_status,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="degree != null" >
+        degree,
+      </if>
+      <if test="workTime != null" >
+        work_time,
+      </if>
+      <if test="workStatus != null" >
+        work_status,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="comeSchoolTime != null" >
+        come_school_time,
+      </if>
+      <if test="teacherId != null" >
+        teacher_id,
+      </if>
+      <if test="partyPosition != null" >
+        party_position,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="politicsStatus != null" >
+        #{politicsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workStatus != null" >
+        #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="comeSchoolTime != null" >
+        #{comeSchoolTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherId != null" >
+        #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="partyPosition != null" >
+        #{partyPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByCondition" parameterType="com.doubleganse.model.TeacherSocialInfoCondition" resultType="java.lang.Integer" >
+    select count(*) from teacher_social_info
+    <if test="_parameter != null" >
+      <include refid="Condition_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByConditionSelective" parameterType="map" >
+    update teacher_social_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.politicsStatus != null" >
+        politics_status = #{record.politicsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profession != null" >
+        profession = #{record.profession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.degree != null" >
+        degree = #{record.degree,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workTime != null" >
+        work_time = #{record.workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.workStatus != null" >
+        work_status = #{record.workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.position != null" >
+        position = #{record.position,jdbcType=VARCHAR},
+      </if>
+      <if test="record.comeSchoolTime != null" >
+        come_school_time = #{record.comeSchoolTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.teacherId != null" >
+        teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.partyPosition != null" >
+        party_position = #{record.partyPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Condition_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByCondition" parameterType="map" >
+    update teacher_social_info
+    set id = #{record.id,jdbcType=INTEGER},
+      politics_status = #{record.politicsStatus,jdbcType=VARCHAR},
+      profession = #{record.profession,jdbcType=VARCHAR},
+      degree = #{record.degree,jdbcType=VARCHAR},
+      work_time = #{record.workTime,jdbcType=TIMESTAMP},
+      work_status = #{record.workStatus,jdbcType=VARCHAR},
+      position = #{record.position,jdbcType=VARCHAR},
+      come_school_time = #{record.comeSchoolTime,jdbcType=TIMESTAMP},
+      teacher_id = #{record.teacherId,jdbcType=INTEGER},
+      party_position = #{record.partyPosition,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Condition_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByIdSelective" parameterType="com.doubleganse.model.TeacherSocialInfo" >
+    update teacher_social_info
+    <set >
+      <if test="politicsStatus != null" >
+        politics_status = #{politicsStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        degree = #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        work_time = #{workTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="workStatus != null" >
+        work_status = #{workStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="comeSchoolTime != null" >
+        come_school_time = #{comeSchoolTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teacherId != null" >
+        teacher_id = #{teacherId,jdbcType=INTEGER},
+      </if>
+      <if test="partyPosition != null" >
+        party_position = #{partyPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateById" parameterType="com.doubleganse.model.TeacherSocialInfo" >
+    update teacher_social_info
+    set politics_status = #{politicsStatus,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      degree = #{degree,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=TIMESTAMP},
+      work_status = #{workStatus,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      come_school_time = #{comeSchoolTime,jdbcType=TIMESTAMP},
+      teacher_id = #{teacherId,jdbcType=INTEGER},
+      party_position = #{partyPosition,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
